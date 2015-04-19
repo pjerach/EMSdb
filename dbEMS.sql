@@ -93,13 +93,15 @@ GO
 
 -- Audit Table Definition 
 CREATE TABLE tb_Audit (
-	auditID				INT				NOT NULL	IDENTITY(1,1),
-	timeChanged			DATETIME		DEFAULT NULL,
-	empID				INT				DEFAULT NULL,
-	oldEntry			VARCHAR(50)		DEFAULT NULL,
-	newEntry			VARCHAR(50)		DEFAULT NULL,
-	PRIMARY KEY(auditID),
-	FOREIGN KEY (empID) REFERENCES tb_Emp(empID)
+        auditID                         INT                     NOT NULL        IDENTITY(1,1),
+        userName                        VARCHAR(30)             NOT NULL,
+        timeChanged                     DATETIME                DEFAULT NULL,
+        empID                           INT                     DEFAULT NULL,
+        oldEntry                        VARCHAR(50)             DEFAULT NULL,
+        newEntry                        VARCHAR(50)             DEFAULT NULL,
+        PRIMARY KEY(auditID),
+        FOREIGN KEY (empID) REFERENCES tb_Emp(empID),
+        FOREIGN KEY (userName) REFERENCES tb_User(userName)
 );
 GO
 
