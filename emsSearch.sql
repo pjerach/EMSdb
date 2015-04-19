@@ -1,6 +1,7 @@
 -------------------SEARCH FOR EMPLOYEE
 use [dbEMS];
-DROP FUNCTION A_SearchEmp;
+IF object_id(N'A_SearchEmp', N'IF') IS NOT NULL
+    DROP FUNCTION A_SearchEmp
 GO
 CREATE FUNCTION A_SearchEmp
 (
@@ -8,10 +9,11 @@ CREATE FUNCTION A_SearchEmp
 ) RETURNS TABLE
 AS RETURN
 	SELECT e.socialInsNumber, e.firstName, e.LastName, e.companyName, e.empType FROM tb_Emp AS e
-	WHERE	(LEN(@fName) = 0 or e.firstName = @fName)
-		AND	(LEN(@lName) = 0 or e.lastName = @lName)
-		AND	(LEN(@sin) = 0 or e.socialInsNumber = @sin);
+	WHERE	(LEN(@fName) = 0 or e.firstName LIKE '%' + @fName + '%')
+		AND	(LEN(@lName) = 0 or e.lastName LIKE '%' + @lName + '%')
+		AND	(LEN(@sin) = 0 or e.socialInsNumber LIKE '%' + @sin + '%');
 GO
+IF object_id(N'G_SearchEmp', N'IF') IS NOT NULL
 DROP FUNCTION G_SearchEmp; 
 GO
 CREATE FUNCTION G_SearchEmp
@@ -30,6 +32,7 @@ GO
 ------------------------------------------------
 use [dbEMS];
 GO
+IF object_id(N'A_DisplayFTEmp', N'IF') IS NOT NULL
 DROP FUNCTION A_DisplayFTEmp;
 GO
 CREATE FUNCTION A_DisplayFTEmp
@@ -42,6 +45,7 @@ AS RETURN
 	WHERE (@fn = e.firstName) AND (@ln = e.lastName)
 	AND (@sin = e.socialInsNumber) AND (@cn = e.companyName);
 GO
+IF object_id(N'G_DisplayFTEmp', N'IF') IS NOT NULL
 DROP FUNCTION G_DisplayFTEmp;
 GO
 CREATE FUNCTION G_DisplayFTEmp
@@ -57,6 +61,7 @@ GO
 ------------------------------------------------
 -------------------DISPLAY PartTime EMPLOYEE
 ------------------------------------------------
+IF object_id(N'A_DisplayPTEmp', N'IF') IS NOT NULL
 DROP FUNCTION A_DisplayPTEmp;
 GO
 CREATE FUNCTION A_DisplayPTEmp
@@ -69,6 +74,7 @@ AS RETURN
 	WHERE (@fn = e.firstName) AND (@ln = e.lastName)
 	AND (@sin = e.socialInsNumber) AND (@cn = e.companyName);
 GO
+IF object_id(N'G_DisplayPTEmp', N'IF') IS NOT NULL
 DROP FUNCTION G_DisplayPTEmp;
 GO
 CREATE FUNCTION G_DisplayPTEmp
@@ -84,6 +90,7 @@ GO
 ------------------------------------------------
 -------------------DISPLAY Seasonal EMPLOYEE
 ------------------------------------------------
+IF object_id(N'A_DisplaySLEmp', N'IF') IS NOT NULL
 DROP FUNCTION A_DisplaySLEmp;
 GO
 CREATE FUNCTION A_DisplaySLEmp
@@ -96,6 +103,7 @@ AS RETURN
 	WHERE (@fn = e.firstName) AND (@ln = e.lastName)
 	AND (@sin = e.socialInsNumber) AND (@cn = e.companyName);
 GO
+IF object_id(N'G_DisplaySLEmp', N'IF') IS NOT NULL
 DROP FUNCTION G_DisplaySLEmp;
 GO
 CREATE FUNCTION G_DisplaySLEmp
@@ -111,6 +119,7 @@ GO
 ------------------------------------------------
 -------------------DISPLAY Contract EMPLOYEE
 ------------------------------------------------
+IF object_id(N'A_DisplayCTEmp', N'IF') IS NOT NULL
 DROP FUNCTION A_DisplayCTEmp;
 GO
 CREATE FUNCTION A_DisplayCTEmp
