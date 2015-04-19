@@ -18,6 +18,7 @@ CREATE TABLE tb_Company (
 	PRIMARY KEY(companyName)
 );
 GO
+
 -- User Table Definition
 CREATE TABLE tb_User (
 	userName		VARCHAR(30)		NOT NULL,
@@ -28,6 +29,7 @@ CREATE TABLE tb_User (
 	PRIMARY KEY(userName)
 );
 GO
+
 -- Employee Table Definition
 CREATE TABLE tb_Emp (
 	empID				INT				NOT NULL		IDENTITY(1,1),
@@ -37,12 +39,14 @@ CREATE TABLE tb_Emp (
 	lastName			VARCHAR(50)		DEFAULT NULL,
 	socialInsNumber		VARCHAR(9)		DEFAULT NULL,
 	dateOfBirth			DATE			DEFAULT NULL,
-	activityStatus		BIT				DEFAULT 0,
-	reasonForLeaving	VARCHAR(100)	DEFAULT NULL,
+	activityStatus		BIT				DEFAULT 0,		-- 0-inactive, 1-active (controlled by the system)
+	reasonForLeaving	VARCHAR(100)	DEFAULT NULL,	-- only for activityStatus=0
 	PRIMARY KEY(empID),
-	FOREIGN KEY (companyName) REFERENCES tb_Company(companyName)
+	FOREIGN KEY (companyName) REFERENCES tb_Company(companyName),
+	UNIQUE(empType, companyName, firstName, lastName, socialInsNumber)
 );
 GO
+
 -- Full-time Employee Table Definition 
 CREATE TABLE tb_FtEmp (
 	empID				INT				NOT NULL,
@@ -53,6 +57,7 @@ CREATE TABLE tb_FtEmp (
 	FOREIGN KEY (empID) REFERENCES tb_Emp(empID)
 );
 GO
+
 -- Part-time Employee Table Definition 
 CREATE TABLE tb_PtEmp (
 	empID				INT				NOT NULL,
@@ -63,6 +68,7 @@ CREATE TABLE tb_PtEmp (
 	FOREIGN KEY (empID) REFERENCES tb_Emp(empID)
 );
 GO
+
 -- Contract Employee Table Definition 
 CREATE TABLE tb_CtEmp (
 	empID				INT				NOT NULL,
@@ -73,16 +79,18 @@ CREATE TABLE tb_CtEmp (
 	FOREIGN KEY (empID) REFERENCES tb_Emp(empID)
 );
 GO
+
 -- Seasonal Employee Table Definition 
 CREATE TABLE tb_SlEmp (
 	empID				INT				NOT NULL,
-	season				INT				DEFAULT NULL,	-- 1-Sprint, 2-Summer, 3-Fall, 4-Winter 
+	season				VARCHAR(10)		DEFAULT NULL,
 	yearOfCt			SMALLINT		DEFAULT NULL,
 	fixedCtAmt			DECIMAL(10,2)	DEFAULT NULL,
 	PRIMARY KEY(empID),
 	FOREIGN KEY (empID) REFERENCES tb_Emp(empID)
 );
 GO
+
 -- Audit Table Definition 
 CREATE TABLE tb_Audit (
 	auditID				INT				NOT NULL	IDENTITY(1,1),
@@ -94,6 +102,7 @@ CREATE TABLE tb_Audit (
 	FOREIGN KEY (empID) REFERENCES tb_Emp(empID)
 );
 GO
+
 -- Time Card Table Definition 
 CREATE TABLE tb_TimeCard (
 	timeCardID			INT				NOT NULL	IDENTITY(1,1),
@@ -116,4 +125,3 @@ CREATE TABLE tb_TimeCard (
 	PRIMARY KEY(timeCardID)
 );
 GO
-
