@@ -1,4 +1,4 @@
---Delete the CAP database if it exists.
+--Delete the CAP database if it exists
 --http://www.mytechmantra.com/LearnSQLServer/Drop-Database-in-SQL-Server-by-Killing-Existing-Connections.html
 WHILE EXISTS(select NULL from sys.databases where name=N'dbEMS' )
 BEGIN

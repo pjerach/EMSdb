@@ -1,6 +1,6 @@
 -------------------SEARCH FOR EMPLOYEE
 use [dbEMS];
-DROP FUNCTION A_SearchEmp; 
+DROP FUNCTION A_SearchEmp;
 GO
 CREATE FUNCTION A_SearchEmp
 (
