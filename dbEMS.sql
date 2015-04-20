@@ -42,8 +42,7 @@ CREATE TABLE tb_Emp (
 	activityStatus		BIT				DEFAULT 0,		-- 0-inactive, 1-active (controlled by the system)
 	reasonForLeaving	VARCHAR(100)	DEFAULT NULL,	-- only for activityStatus=0
 	PRIMARY KEY(empID),
-	FOREIGN KEY (companyName) REFERENCES tb_Company(companyName),
-	UNIQUE(empType, companyName, firstName, lastName, socialInsNumber)
+	FOREIGN KEY (companyName) REFERENCES tb_Company(companyName)
 );
 GO
 
@@ -84,11 +83,12 @@ GO
 CREATE TABLE tb_SlEmp (
 	empID				INT				NOT NULL,
 	season				VARCHAR(10)		DEFAULT NULL,
-	yearOfCt			SMALLINT		DEFAULT NULL,
-	fixedCtAmt			DECIMAL(10,2)	DEFAULT NULL,
+	seasonYear			SMALLINT		DEFAULT NULL,
 	dateStart			DATE			DEFAULT NULL,
+	piecePay			DECIMAL(10,2)	DEFAULT NULL,
 	PRIMARY KEY(empID),
-	FOREIGN KEY (empID) REFERENCES tb_Emp(empID)
+	FOREIGN KEY (empID) REFERENCES tb_Emp(empID),
+	UNIQUE(season, seasonYear)
 );
 GO
 

@@ -98,7 +98,7 @@ CREATE FUNCTION A_DisplaySLEmp
 	@fn VARCHAR(50), @ln VARCHAR(50), @sin VARCHAR(9), @cn VARCHAR(50)
 ) RETURNS TABLE 
 AS RETURN
-	SELECT e.socialInsNumber, e.firstName, e.LastName, e.companyName, sl.season, sl.yearOfCt, sl.fixedCtAmt
+	SELECT e.socialInsNumber, e.firstName, e.LastName, e.companyName, sl.season, sl.seasonYear, sl.dateStart, sl.piecePay
 	FROM tb_Emp AS e INNER JOIN tb_SlEmp AS sl ON (e.empID = sl.empID)
 	WHERE (@fn = e.firstName) AND (@ln = e.lastName)
 	AND (@sin = e.socialInsNumber) AND (@cn = e.companyName);
@@ -111,7 +111,7 @@ CREATE FUNCTION G_DisplaySLEmp
 	@fn VARCHAR(50), @ln VARCHAR(50), @sin VARCHAR(9), @cn VARCHAR(50)
 ) RETURNS TABLE 
 AS RETURN
-	SELECT e.socialInsNumber, e.firstName, e.LastName, e.companyName, sl.season, sl.yearOfCt
+	SELECT e.socialInsNumber, e.firstName, e.LastName, e.companyName, sl.season, sl.seasonYear, sl.dateStart
 	FROM tb_Emp AS e INNER JOIN tb_SlEmp AS sl ON (e.empID = sl.empID)
 	WHERE (@fn = e.firstName) AND (@ln = e.lastName)
 	AND (@sin = e.socialInsNumber) AND (@cn = e.companyName);
