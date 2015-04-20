@@ -19,10 +19,16 @@ insert into tb_Company values ('MS');
 ------- INSERTING FULLTIME EMPLOYEE
 -----------------------------------------
 use dbEMS;
-insert into tb_Emp (empType, companyName, firstName, lastName, socialInsNumber, dateOfBirth) values 
-	('FT', 'BlackBerry', 'rachel', 'park', '333333334', '1989-11-19');
+insert into tb_Emp (empType, companyName, firstName, lastName, socialInsNumber, dateOfBirth, activityStatus) values 
+	('FT', 'BlackBerry', 'rachel', 'park', '333333334', '1989-11-19', 1);
 insert into tb_FtEmp values (1, '2000-1-1', '2010-1-1', 200000);
 GO
+insert into tb_Emp (empType, companyName, firstName, lastName, socialInsNumber, dateOfBirth, activityStatus) values 
+	('SL', 'MS', 'jo', 'chang', '1212121', '1989-11-19', 1);
+insert into tb_SlEmp values (2, 'FALL', 2010, 9999.99, '2010-9-1');
+GO
+
+select * from tb_Emp;
 /*
 use dbEMS;
 insert into tb_Emp (empType, companyName, firstName, lastName, socialInsNumber, dateOfBirth) values 
