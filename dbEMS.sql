@@ -87,8 +87,7 @@ CREATE TABLE tb_SlEmp (
 	dateStart			DATE			DEFAULT NULL,
 	piecePay			DECIMAL(10,2)	DEFAULT NULL,
 	PRIMARY KEY(empID),
-	FOREIGN KEY (empID) REFERENCES tb_Emp(empID),
-	UNIQUE(season, seasonYear)
+	FOREIGN KEY (empID) REFERENCES tb_Emp(empID)
 );
 GO
 

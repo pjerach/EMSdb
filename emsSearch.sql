@@ -8,7 +8,7 @@ CREATE FUNCTION A_SearchEmp
 	@fName VARCHAR(50), @lName VARCHAR(50), @sin VARCHAR(9)
 ) RETURNS TABLE
 AS RETURN
-	SELECT e.socialInsNumber, e.firstName, e.LastName, e.companyName, e.empType FROM tb_Emp AS e
+	SELECT e.empID, e.socialInsNumber, e.firstName, e.LastName, e.companyName, e.empType FROM tb_Emp AS e
 	WHERE	(LEN(@fName) = 0 or e.firstName LIKE '%' + @fName + '%')
 		AND	(LEN(@lName) = 0 or e.lastName LIKE '%' + @lName + '%')
 		AND	(LEN(@sin) = 0 or e.socialInsNumber LIKE '%' + @sin + '%');
@@ -21,7 +21,7 @@ CREATE FUNCTION G_SearchEmp
 	@fName VARCHAR(50), @lName VARCHAR(50), @sin VARCHAR(9)
 ) RETURNS TABLE
 AS RETURN
-	SELECT e.socialInsNumber, e.firstName, e.LastName, e.companyName, e.empType FROM tb_Emp AS e
+	SELECT e.empID, e.socialInsNumber, e.firstName, e.LastName, e.companyName, e.empType FROM tb_Emp AS e
 	WHERE	(LEN(@fName) = 0 or e.firstName = @fName)
 		AND	(LEN(@lName) = 0 or e.lastName = @lName)
 		AND	(LEN(@sin) = 0 or e.socialInsNumber = @sin)
@@ -37,26 +37,24 @@ DROP FUNCTION A_DisplayFTEmp;
 GO
 CREATE FUNCTION A_DisplayFTEmp
 (
-	@fn VARCHAR(50), @ln VARCHAR(50), @sin VARCHAR(9), @cn VARCHAR(50)
+	@eid INT
 ) RETURNS TABLE 
 AS RETURN
-	SELECT e.socialInsNumber, e.firstName, e.LastName, e.companyName, fe.dateOfHire, fe.dateOfTermination, fe.salary
+	SELECT e.empID, e.socialInsNumber, e.firstName, e.LastName, e.companyName, fe.dateOfHire, fe.dateOfTermination, fe.salary
 	FROM tb_Emp AS e INNER JOIN tb_FtEmp AS fe ON (e.empID = fe.empID)
-	WHERE (@fn = e.firstName) AND (@ln = e.lastName)
-	AND (@sin = e.socialInsNumber) AND (@cn = e.companyName);
+	WHERE (@eid = e.empID);
 GO
 IF object_id(N'G_DisplayFTEmp', N'IF') IS NOT NULL
 DROP FUNCTION G_DisplayFTEmp;
 GO
 CREATE FUNCTION G_DisplayFTEmp
 (
-	@fn VARCHAR(50), @ln VARCHAR(50), @sin VARCHAR(9), @cn VARCHAR(50)
+	@eid INT
 ) RETURNS TABLE 
 AS RETURN
-	SELECT e.socialInsNumber, e.firstName, e.LastName, e.companyName, fe.dateOfHire
+	SELECT e.empID, e.socialInsNumber, e.firstName, e.LastName, e.companyName, fe.dateOfHire
 	FROM tb_Emp AS e INNER JOIN tb_FtEmp AS fe ON (e.empID = fe.empID)
-	WHERE (@fn = e.firstName) AND (@ln = e.lastName)
-	AND (@sin = e.socialInsNumber) AND (@cn = e.companyName);
+	WHERE (@eid = e.empID);
 GO	
 ------------------------------------------------
 -------------------DISPLAY PartTime EMPLOYEE
@@ -66,26 +64,24 @@ DROP FUNCTION A_DisplayPTEmp;
 GO
 CREATE FUNCTION A_DisplayPTEmp
 (
-	@fn VARCHAR(50), @ln VARCHAR(50), @sin VARCHAR(9), @cn VARCHAR(50)
+	@eid INT
 ) RETURNS TABLE 
 AS RETURN
-	SELECT e.socialInsNumber, e.firstName, e.LastName, e.companyName, pe.dateOfHire, pe.dateOfTermination, pe.hourlyRate
+	SELECT e.empID, e.socialInsNumber, e.firstName, e.LastName, e.companyName, pe.dateOfHire, pe.dateOfTermination, pe.hourlyRate
 	FROM tb_Emp AS e INNER JOIN tb_PtEmp AS pe ON (e.empID = pe.empID)
-	WHERE (@fn = e.firstName) AND (@ln = e.lastName)
-	AND (@sin = e.socialInsNumber) AND (@cn = e.companyName);
+	WHERE (@eid = e.empID);
 GO
 IF object_id(N'G_DisplayPTEmp', N'IF') IS NOT NULL
 DROP FUNCTION G_DisplayPTEmp;
 GO
 CREATE FUNCTION G_DisplayPTEmp
 (
-	@fn VARCHAR(50), @ln VARCHAR(50), @sin VARCHAR(9), @cn VARCHAR(50)
+	@eid INT
 ) RETURNS TABLE 
 AS RETURN
-	SELECT e.socialInsNumber, e.firstName, e.LastName, e.companyName, pe.dateOfHire
+	SELECT e.empID, e.socialInsNumber, e.firstName, e.LastName, e.companyName, pe.dateOfHire
 	FROM tb_Emp AS e INNER JOIN tb_PtEmp AS pe ON (e.empID = pe.empID)
-	WHERE (@fn = e.firstName) AND (@ln = e.lastName)
-	AND (@sin = e.socialInsNumber) AND (@cn = e.companyName);
+	WHERE (@eid = e.empID);
 GO
 ------------------------------------------------
 -------------------DISPLAY Seasonal EMPLOYEE
@@ -95,26 +91,24 @@ DROP FUNCTION A_DisplaySLEmp;
 GO
 CREATE FUNCTION A_DisplaySLEmp
 (
-	@fn VARCHAR(50), @ln VARCHAR(50), @sin VARCHAR(9), @cn VARCHAR(50)
+	@eid INT
 ) RETURNS TABLE 
 AS RETURN
-	SELECT e.socialInsNumber, e.firstName, e.LastName, e.companyName, sl.season, sl.seasonYear, sl.dateStart, sl.piecePay
+	SELECT e.empID, e.socialInsNumber, e.firstName, e.LastName, e.companyName, sl.season, sl.seasonYear, sl.dateStart, sl.piecePay
 	FROM tb_Emp AS e INNER JOIN tb_SlEmp AS sl ON (e.empID = sl.empID)
-	WHERE (@fn = e.firstName) AND (@ln = e.lastName)
-	AND (@sin = e.socialInsNumber) AND (@cn = e.companyName);
+	WHERE (@eid = e.empID);
 GO
 IF object_id(N'G_DisplaySLEmp', N'IF') IS NOT NULL
 DROP FUNCTION G_DisplaySLEmp;
 GO
 CREATE FUNCTION G_DisplaySLEmp
 (
-	@fn VARCHAR(50), @ln VARCHAR(50), @sin VARCHAR(9), @cn VARCHAR(50)
+	@eid INT
 ) RETURNS TABLE 
 AS RETURN
-	SELECT e.socialInsNumber, e.firstName, e.LastName, e.companyName, sl.season, sl.seasonYear, sl.dateStart
+	SELECT e.empID, e.socialInsNumber, e.firstName, e.LastName, e.companyName, sl.season, sl.seasonYear, sl.dateStart
 	FROM tb_Emp AS e INNER JOIN tb_SlEmp AS sl ON (e.empID = sl.empID)
-	WHERE (@fn = e.firstName) AND (@ln = e.lastName)
-	AND (@sin = e.socialInsNumber) AND (@cn = e.companyName);
+	WHERE (@eid = e.empID);
 GO
 ------------------------------------------------
 -------------------DISPLAY Contract EMPLOYEE
@@ -124,15 +118,14 @@ DROP FUNCTION A_DisplayCTEmp;
 GO
 CREATE FUNCTION A_DisplayCTEmp
 (
-	@fn VARCHAR(50), @ln VARCHAR(50), @sin VARCHAR(9), @cn VARCHAR(50)
+	@eid INT
 ) RETURNS TABLE 
 AS RETURN
-	SELECT e.socialInsNumber, e.firstName, e.LastName, e.companyName, ct.dateStart, ct.dateStop, ct.fixedCtAmt
+	SELECT e.empID, e.socialInsNumber, e.firstName, e.LastName, e.companyName, ct.dateStart, ct.dateStop, ct.fixedCtAmt
 	FROM tb_Emp AS e INNER JOIN tb_CtEmp AS ct ON (e.empID = ct.empID)
-	WHERE (@fn = e.firstName) AND (@ln = e.lastName)
-	AND (@sin = e.socialInsNumber) AND (@cn = e.companyName);
+	WHERE (@eid = e.empID);
 GO
 	
 
 use dbEMS;
-select * from dbo.A_DisplayFTEmp('rachel', 'park', '333333334', 'BlackBerry');
+select * from dbo.A_DisplayFTEmp(1);--'rachel', 'park', '333333334', 'BlackBerry');

@@ -37,7 +37,7 @@ insert into tb_PtEmp values (4, '2000-6-1', '2010-1-1', 2000);
 
 insert into tb_Emp (empType, companyName, firstName, lastName, socialInsNumber, dateOfBirth, activityStatus) values 
 	('PT', 'Google', 'rachel', 'park', '333333334', '1989-11-19', 0);
-insert into tb_PtEmp values (5, '2011-1-2', '2016-1-1', -1);
+insert into tb_PtEmp values (5, '2011-1-2', '2016-1-1', 7);
 
 insert into tb_Emp (empType, companyName, firstName, lastName, socialInsNumber, dateOfBirth, activityStatus) values 
 	('CT', 'Google', '', 'park', '333333334', '1989-11-19', 1);
