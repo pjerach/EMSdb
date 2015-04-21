@@ -44,6 +44,12 @@ insert into tb_Emp (empType, companyName, firstName, lastName, socialInsNumber, 
 insert into tb_CtEmp values (6, '2011-1-2', '2016-1-1', 7000);
 GO
 select * from tb_Emp;
+
+select * from tb_FtEmp;
+select * from tb_PtEmp;
+select * from tb_SLEmp;
+select * from tb_FtEmp;
+
 select * from tb_SlEmp;
 select * from tb_TimeCard;
 
